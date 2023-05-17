@@ -1,0 +1,2 @@
+##race_application_command_service:
+Spring boot microservice implementing the mutating API endpoints (create, patch, delete). The service produces an event upon receiving an API request and publishes it to a Kafka messaging system.
