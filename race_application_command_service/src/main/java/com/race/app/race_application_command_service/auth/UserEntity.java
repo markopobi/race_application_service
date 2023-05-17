@@ -30,6 +30,10 @@ public class UserEntity
     private String password;
 
     @NotNull
-    @Size(max = 255)
-    private String role;
+    @Size(max = 1024)
+    private String roles;
+
+    @NotNull
+    @Size(max = 1024)
+    private String authorities;
 }

@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * Represents an Race application entity as JPA entity containing the necessary
+ * Represents a race application entity as JPA entity containing the necessary
  * fields: id, firstName, lastName and distance. Field club is optional
  */
 @Getter

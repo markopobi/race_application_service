@@ -1,7 +1,12 @@
 package com.race.app.race_application_command_service.auth;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -24,11 +29,25 @@ public class MyUserDetailsService implements UserDetailsService
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
     {
-        UserEntity userEntity = userRepository.findByUsername(username);
-        if (userEntity == null)
-        {
-            throw new UsernameNotFoundException("UserEntity not found with username: " + username);
-        }
-        return new User(userEntity.getUsername(), userEntity.getPassword(), new ArrayList<>());
+        UserEntity userEntity = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("UserEntity not found with username: " + username));
+
+        List<GrantedAuthority> authorities = new ArrayList<>();
+
+        // Add roles as authorities
+        authorities.addAll(
+                Arrays.stream(userEntity.getRoles().split(","))
+                        .map(role -> new SimpleGrantedAuthority("ROLE_" + role.trim()))
+                        .collect(Collectors.toList())
+        );
+
+        // Add extra authorities
+        authorities.addAll(
+                Arrays.stream(userEntity.getAuthorities().split(","))
+                        .map(SimpleGrantedAuthority::new)
+                        .collect(Collectors.toList())
+        );
+
+        return new User(userEntity.getUsername(), userEntity.getPassword(), authorities);
     }
 }

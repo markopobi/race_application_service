@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Represents an race application event containing the necessary
+ * Represents a race application event containing the necessary
  * credentials: type and race application.
  */
 @Getter

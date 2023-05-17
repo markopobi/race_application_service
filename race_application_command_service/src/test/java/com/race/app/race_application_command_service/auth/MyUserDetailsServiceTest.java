@@ -1,5 +1,7 @@
 package com.race.app.race_application_command_service.auth;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -32,8 +34,10 @@ public class MyUserDetailsServiceTest {
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername("test");
         userEntity.setPassword("password");
+        userEntity.setRoles("ADMIN,USER");
+        userEntity.setAuthorities("race_application:write,race_application:patch,race_application:delete");
 
-        when(userRepository.findByUsername("test")).thenReturn(userEntity);
+        when(userRepository.findByUsername("test")).thenReturn(java.util.Optional.of(userEntity));
 
         //when
         UserDetails userDetails = myUserDetailsService.loadUserByUsername("test");
@@ -46,7 +50,7 @@ public class MyUserDetailsServiceTest {
     @Test
     public void loadUserByUsername_WhenUserDoesNotExist_ThrowsUsernameNotFoundException() {
         //given
-        when(userRepository.findByUsername("test")).thenReturn(null);
+        when(userRepository.findByUsername("test")).thenReturn(Optional.empty());
 
         //when and then
         assertThrows(UsernameNotFoundException.class, () -> myUserDetailsService.loadUserByUsername("test"));

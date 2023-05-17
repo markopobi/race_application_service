@@ -37,7 +37,7 @@ public class KafkaProducerConfig
     @Bean
     public KafkaTemplate<String, RaceApplicationEvent> kafkaTemplate()
     {
-        log.debug("Starting bean kafkaTemplate...");
+        log.debug("Creating new kafkaTemplate...");
         return new KafkaTemplate<>(producerFactory());
     }
 }
