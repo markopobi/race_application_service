@@ -1,2 +1,2 @@
-###race_application_query_service:
+### race_application_query_service:
 Spring boot microservice, listening to a queue/topic/stream on the messaging system. When a new event appears, it updates its PostgreSQL database. It should also implement the query endpoints (get one and get all).
