@@ -89,7 +89,8 @@ public class RaceApplicationQueryControllerTest
         when(raceApplicationQueryService.getAllRaceApplications()).thenReturn(Collections.emptyList());
 
         // When & Then
-        mockMvc.perform(get("http://localhost:8081/api/race-applications/")).andExpect(status().isOk())
+        mockMvc.perform(get("http://localhost:8081/api/race-applications/"))
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isEmpty());
     }
 }

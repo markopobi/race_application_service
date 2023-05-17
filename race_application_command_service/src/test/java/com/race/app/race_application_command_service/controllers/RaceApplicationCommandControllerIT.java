@@ -63,9 +63,11 @@ public class RaceApplicationCommandControllerIT
 
         // Perform the post request
         mockMvc.perform(post("/api/race-application").contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(raceApplication))).andExpect(status().isCreated())
+                        .content(objectMapper.writeValueAsString(raceApplication)))
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id", is(raceApplication.getId().toString())))
-                .andExpect(jsonPath("$.firstName", is("First"))).andExpect(jsonPath("$.lastName", is("Last")))
+                .andExpect(jsonPath("$.firstName", is("First")))
+                .andExpect(jsonPath("$.lastName", is("Last")))
                 .andExpect(jsonPath("$.club", is("Club")))
                 .andExpect(jsonPath("$.distance", is(Distance.MARATHON.toString())));
     }
@@ -89,9 +91,11 @@ public class RaceApplicationCommandControllerIT
         // Perform the patch request
         mockMvc.perform(
                         patch("/api/race-application/" + savedRaceApplication.getId()).contentType(MediaType.APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsString(updates))).andExpect(status().isOk())
+                                .content(objectMapper.writeValueAsString(updates)))
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(savedRaceApplication.getId().toString())))
-                .andExpect(jsonPath("$.firstName", is("UpdatedFirst"))).andExpect(jsonPath("$.lastName", is("Last")))
+                .andExpect(jsonPath("$.firstName", is("UpdatedFirst")))
+                .andExpect(jsonPath("$.lastName", is("Last")))
                 .andExpect(jsonPath("$.club", is("Club")))
                 .andExpect(jsonPath("$.distance", is(Distance.MARATHON.toString())));
     }

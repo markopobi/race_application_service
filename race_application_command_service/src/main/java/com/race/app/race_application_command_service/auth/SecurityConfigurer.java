@@ -1,6 +1,5 @@
 package com.race.app.race_application_command_service.auth;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,17 +21,17 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfigurer
 {
 
-    // Inject the user details service
-    @Autowired
-    private MyUserDetailsService myUserDetailsService;
-
-    // Inject the JWT request filter
-    @Autowired
-    private JwtRequestFilter jwtRequestFilter;
-
     // Inject the JWT set URI from application properties
     @Value("${spring.security.oauth2.resourceserver.jwt.jwk-set-uri}")
     String jwkSetUri;
+
+    // Inject the JWT request filter
+    private final JwtRequestFilter jwtRequestFilter;
+
+    public SecurityConfigurer(JwtRequestFilter jwtRequestFilter)
+    {
+        this.jwtRequestFilter = jwtRequestFilter;
+    }
 
     // Configure the JWT decoder bean
     @Bean

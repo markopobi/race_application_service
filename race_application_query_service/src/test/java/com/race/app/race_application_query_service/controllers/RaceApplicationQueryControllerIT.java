@@ -99,6 +99,8 @@ public class RaceApplicationQueryControllerIT
     {
         raceApplicationRepository.deleteAll();
         mockMvc.perform(get("/api/race-applications").contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk()).andExpect(jsonPath("$").isArray()).andExpect(jsonPath("$").isEmpty());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$").isEmpty());
     }
 }
